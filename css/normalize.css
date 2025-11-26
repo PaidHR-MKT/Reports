@@ -353,3 +353,11 @@ td,
 th {
   padding: 0;
 }
+
+.nav_left {
+ display: none !important;
+}
+
+.navbar_link {
+  display: none !important;
+}
