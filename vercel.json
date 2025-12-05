@@ -20,6 +20,16 @@
       "source": "/:folder/:page.html",
       "destination": "/:folder/:page"
     },
+
+    {
+      "source": "/:slug/",
+      "destination": "/:slug"
+    },
+    {
+      "source": "/:folder/:page/",
+      "destination": "/:folder/:page"
+    },
+
     {
       "source": "/:slug",
       "destination": "/:slug.html"
