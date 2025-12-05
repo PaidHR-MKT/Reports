@@ -1,21 +1,28 @@
 {
-    "redirects": [
-      {
-        "source": "/",
-        "destination": "https://www.paidhr.com/reports-research",
-        "permanent": false
-      },
-      {
-        "source": "/index.html",
-        "destination": "https://www.paidhr.com/reports-research",
-        "permanent": false
-      }
-    ],
-    "rewrites": [
-      {
-        "source": "/:slug",
-        "destination": "/:slug.html"
-      }
-    ]
-  }
-  
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "https://www.paidhr.com/reports-research",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "destination": "https://www.paidhr.com/reports-research",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/:slug",
+      "destination": "/:slug.html"
+    },
+    {
+      "source": "/:folder/:page",
+      "destination": "/:folder/:page.html"
+    },
+    {
+      "source": "/:folder",
+      "destination": "/:folder/index.html"
+    }
+  ]
+}
