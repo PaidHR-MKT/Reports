@@ -13,6 +13,14 @@
   ],
   "rewrites": [
     {
+      "source": "/:slug.html",
+      "destination": "/:slug"
+    },
+    {
+      "source": "/:folder/:page.html",
+      "destination": "/:folder/:page"
+    },
+    {
       "source": "/:slug",
       "destination": "/:slug.html"
     },
