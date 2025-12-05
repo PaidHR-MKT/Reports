@@ -13,31 +13,37 @@
   ],
   "rewrites": [
     {
-      "source": "/:slug.html",
-      "destination": "/:slug"
+      "source": "/(.*)\\.(css|js|png|jpg|jpeg|svg|gif|webp|ico|json)",
+      "destination": "/$1.$2"
     },
+
     {
       "source": "/:folder/:page.html",
       "destination": "/:folder/:page"
     },
-
     {
-      "source": "/:slug/",
+      "source": "/:slug.html",
       "destination": "/:slug"
     },
+
     {
       "source": "/:folder/:page/",
       "destination": "/:folder/:page"
     },
-
     {
-      "source": "/:slug",
-      "destination": "/:slug.html"
+      "source": "/:slug/",
+      "destination": "/:slug"
     },
+
     {
       "source": "/:folder/:page",
       "destination": "/:folder/:page.html"
     },
+    {
+      "source": "/:slug",
+      "destination": "/:slug.html"
+    },
+
     {
       "source": "/:folder",
       "destination": "/:folder/index.html"
