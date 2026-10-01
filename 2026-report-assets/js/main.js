@@ -59,8 +59,9 @@
     const decimals = parseInt(el.dataset.decimals || "0", 10);
     const prefix = el.dataset.prefix || "";
     const suffix = el.dataset.suffix || "";
-    const format = (n) =>
-      prefix + n.toLocaleString("en-NG", { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) + suffix;
+    // One formatter per counter: building it is the expensive part, and tick() runs every frame
+    const nf = new Intl.NumberFormat("en-NG", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    const format = (n) => prefix + nf.format(n) + suffix;
     const duration = 1900;
     const start = performance.now();
 
@@ -114,7 +115,7 @@
   // Hero: kick off the headline word reveal on load.
   const hero = document.querySelector("[data-hero]");
   if (hero) {
-    hero.querySelector("[data-words]")?.style.setProperty("--reveal-delay", "150ms");
+    hero.querySelector("h1[data-words]")?.style.setProperty("--reveal-delay", "150ms");
     requestAnimationFrame(() => hero.classList.add("is-visible"));
   }
 
@@ -159,11 +160,23 @@
         }
       });
     };
-    window.addEventListener("scroll", revealAtBottom, { passive: true });
+    let bottomQueued = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (bottomQueued) return;
+        bottomQueued = true;
+        requestAnimationFrame(() => {
+          bottomQueued = false;
+          revealAtBottom();
+        });
+      },
+      { passive: true }
+    );
   }
 
-  // Run looping animations (hero bars, banner walker) only while they are on screen.
-  const loops = document.querySelectorAll("[data-walker], [data-hero]");
+  // Run the hero bar loop only while the hero is on screen.
+  const loops = document.querySelectorAll("[data-hero]");
   if ("IntersectionObserver" in window) {
     const loopObserver = new IntersectionObserver((entries) =>
       entries.forEach((e) => e.target.toggleAttribute("data-playing", e.isIntersecting))
@@ -171,38 +184,6 @@
     loops.forEach((el) => loopObserver.observe(el));
   } else {
     loops.forEach((el) => el.setAttribute("data-playing", ""));
-  }
-
-  // Testimonial: once the entrance has played, let the cards follow the cursor at different depths.
-  const quoteStack = document.querySelector(".quote-stack");
-  const quoteCard = quoteStack?.querySelector("[data-quote-card]");
-  if (quoteStack && quoteCard && !reduceMotion) {
-    quoteCard.addEventListener("transitionend", function settle(e) {
-      if (e.target !== quoteCard || e.propertyName !== "transform") return;
-      quoteStack.classList.add("is-settled");
-      quoteCard.removeEventListener("transitionend", settle);
-    });
-
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      const area = quoteStack.closest("section");
-      let raf = 0;
-      area.addEventListener("pointermove", (e) => {
-        if (!quoteStack.classList.contains("is-settled")) return;
-        cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-          const r = quoteStack.getBoundingClientRect();
-          const px = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width / 2 + 160)));
-          const py = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height / 2 + 120)));
-          quoteStack.style.setProperty("--px", px.toFixed(3));
-          quoteStack.style.setProperty("--py", py.toFixed(3));
-        });
-      });
-      area.addEventListener("pointerleave", () => {
-        cancelAnimationFrame(raf);
-        quoteStack.style.setProperty("--px", "0");
-        quoteStack.style.setProperty("--py", "0");
-      });
-    }
   }
 
   // Card hover: lift + tilt towards the cursor, glow follows the pointer. Desktop pointers only.
@@ -237,7 +218,7 @@
   }
 
   // Scroll-linked motion: hero copy eases up and fades as you leave the hero,
-  // big images drift against the scroll, the download banner zooms slowly.
+  // big images drift against the scroll.
   if (!reduceMotion) {
     const heroContent = document.querySelector("[data-hero-content]");
     const drifters = [...document.querySelectorAll("[data-drift]")];
@@ -259,7 +240,6 @@
         // -1 when the box is entering at the bottom, +1 when leaving at the top
         const p = Math.max(-1, Math.min(1, (vh / 2 - (box.top + box.height / 2)) / (vh / 2 + box.height / 2)));
         img.style.translate = `0 ${Math.round(p * box.height * 0.06)}px`;
-        if (img.hasAttribute("data-zoom")) img.style.scale = (1.04 + p * 0.04).toFixed(4);
       });
     };
 
