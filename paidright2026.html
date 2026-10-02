@@ -28,8 +28,8 @@
       property="og:description"
       content="Is your pay normal? 25,000+ real payroll records from 400+ Nigerian employers: median salary, pay growth, industry gaps and the gender pay gap."
     />
-    <meta property="og:image" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610011130" />
-    <meta property="og:image:secure_url" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610011130" />
+    <meta property="og:image" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610021230" />
+    <meta property="og:image:secure_url" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610021230" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="600" />
@@ -47,7 +47,7 @@
     <meta name="twitter:creator" content="@getPaidHR" />
     <meta name="twitter:title" content="Getting PaidRight: PaidHR Compensation Report 2026" />
     <meta name="twitter:description" content="Real payroll, not guesses. What work pays in Nigeria, from 25,000+ payroll records across 400+ employers." />
-    <meta name="twitter:image" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610011130" />
+    <meta name="twitter:image" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610021230" />
     <meta name="twitter:image:alt" content="Getting PaidRight — PaidHR Compensation Intelligence Report 2026" />
 
     <!-- ========== Icons ========== -->
@@ -59,7 +59,7 @@
     <link rel="preload" href="/2026-report-assets/fonts/gilroy-medium.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/2026-report-assets/fonts/gilroy-regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/2026-report-assets/img/hero/backdrop.webp" as="image" imagesrcset="/2026-report-assets/img/hero/backdrop.webp 1440w, /2026-report-assets/img/hero/backdrop@2x.webp 2880w" imagesizes="max(100vw, 1440px)" fetchpriority="high" />
-    <link rel="stylesheet" href="/2026-report-assets/css/style.css?v=202610011130" />
+    <link rel="stylesheet" href="/2026-report-assets/css/style.css?v=202610021230" />
     <script>
       document.documentElement.classList.add("js");
     </script>
@@ -162,7 +162,7 @@
   <body>
     <a href="#numbers" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2.5 focus:text-sm focus:text-navy focus:shadow-lg">Skip to the report</a>
     <!-- ============ HERO ============ -->
-    <section id="hero" data-hero class="relative isolate overflow-hidden bg-brand text-white lg:min-h-[888px]">
+    <section id="hero" data-hero class="relative isolate flex min-h-dvh flex-col overflow-hidden bg-brand text-white">
       <!-- Hero art: background plate + four bar layers that rise in and float.
            The stage mimics object-cover/object-top so the bars stay locked to the plate at any size. -->
       <div data-hero-art class="pointer-events-none absolute inset-0 -z-10 overflow-hidden [container-type:size]" aria-hidden="true">
@@ -210,40 +210,42 @@
         </button>
       </header>
 
-      <!-- Content -->
-      <div data-hero-content class="page-wrap pb-24 pt-20 text-center sm:pt-28 lg:pb-28 lg:pt-[134px]">
-        <p data-hero-anim style="--d: 120ms" class="mb-5 text-xs font-medium uppercase text-white/80 lg:hidden">
-          Compensation Intelligence Report · 2026
-        </p>
+      <!-- Content is centred in the space below the header, so it sits in the true middle of the
+           viewport at any height, and the next section only comes into view once the user scrolls. -->
+      <div class="flex flex-1 items-center justify-center">
+        <div data-hero-content class="page-wrap py-12 text-center sm:py-16 lg:py-10">
+          <p data-hero-anim style="--d: 120ms" class="mb-5 text-xs font-medium uppercase text-white/80 lg:hidden">
+            Compensation Intelligence Report · 2026
+          </p>
 
-        <!-- Headline + its mint offset outline. The outline is a static vector image from the design (sized in em, so it
-             scales with the headline); one image for the one-line layout, one per word when phones wrap it onto two lines. -->
-        <div class="relative text-[clamp(3.25rem,9vw,8rem)]">
-          <img src="/2026-report-assets/img/hero/ring-line.svg" alt="" width="1073" height="125" class="hero-ring left-[calc(50%-4.19266em)] top-[0.15625em] w-[8.38531em] max-[499px]:hidden" aria-hidden="true" />
-          <img src="/2026-report-assets/img/hero/ring-getting.svg" alt="" width="440" height="125" class="hero-ring hidden left-[calc(50%-1.72414em)] top-[0.15625em] w-[3.44016em] max-[499px]:block" aria-hidden="true" />
-          <img src="/2026-report-assets/img/hero/ring-paidright.svg" alt="" width="589" height="125" class="hero-ring hidden left-[calc(50%-2.28203em)] top-[1.35625em] w-[4.60117em] max-[499px]:block" aria-hidden="true" />
-          <h1 data-words class="relative font-medium leading-[1.2]">
-            Getting <span class="whitespace-nowrap text-mint max-[499px]:block">PaidRight.</span>
-          </h1>
+          <!-- Headline + its mint offset outline. The outline is a static vector image from the design (sized in em, so it
+               scales with the headline); one image for the one-line layout, one per word when phones wrap it onto two lines. -->
+          <div class="relative text-[clamp(3.25rem,9vw,8rem)]">
+            <img src="/2026-report-assets/img/hero/ring-line.svg" alt="" width="1073" height="125" class="hero-ring left-[calc(50%-4.19266em)] top-[0.15625em] w-[8.38531em] max-[499px]:hidden" aria-hidden="true" />
+            <img src="/2026-report-assets/img/hero/ring-getting.svg" alt="" width="440" height="125" class="hero-ring hidden left-[calc(50%-1.72414em)] top-[0.15625em] w-[3.44016em] max-[499px]:block" aria-hidden="true" />
+            <img src="/2026-report-assets/img/hero/ring-paidright.svg" alt="" width="589" height="125" class="hero-ring hidden left-[calc(50%-2.28203em)] top-[1.35625em] w-[4.60117em] max-[499px]:block" aria-hidden="true" />
+            <h1 data-words class="relative font-medium leading-[1.2]">
+              Getting <span class="whitespace-nowrap text-mint max-[499px]:block">PaidRight.</span>
+            </h1>
+          </div>
+
+          <div data-hero-anim style="--d: 340ms" class="mx-auto mt-6 max-w-[860px] space-y-2 text-base font-normal leading-[1.6] sm:mt-10 lg:space-y-0 lg:leading-[2] md:text-lg lg:mt-[41px] lg:text-xl">
+            <p>Every payday, someone checks their alert and wonders the same thing: is this normal?</p>
+            <p>We wanted a better answer. So we skipped the guessing and looked at real payroll instead.</p>
+          </div>
+
+          <!-- TODO: point href at the real report file -->
+          <a
+            href="#"
+            data-download
+            data-hero-anim
+            style="--d: 460ms"
+            class="mt-8 inline-flex h-12 items-center justify-center rounded-xl bg-mint px-5 text-sm font-semibold text-forest shadow-[inset_0_2px_0_#46ffd3,inset_0_-2px_0_#0fd1aa] btn-motion hover:-translate-y-1 hover:bg-white hover:shadow-[0_22px_44px_-12px_rgb(0_0_60/0.45)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:mt-11 md:h-14 lg:mt-10"
+          >
+            Download the report
+          </a>
         </div>
-
-        <div data-hero-anim style="--d: 340ms" class="mx-auto mt-6 max-w-[860px] space-y-2 text-base font-normal leading-[1.6] sm:mt-10 lg:space-y-0 lg:leading-[2] md:text-lg lg:mt-[41px] lg:text-xl">
-          <p>Every payday, someone checks their alert and wonders the same thing: is this normal?</p>
-          <p>We wanted a better answer. So we skipped the guessing and looked at real payroll instead.</p>
-        </div>
-
-        <!-- TODO: point href at the real report file -->
-        <a
-          href="#"
-          data-download
-          data-hero-anim
-          style="--d: 460ms"
-          class="mt-8 inline-flex h-12 items-center justify-center rounded-xl bg-mint px-5 text-sm font-semibold text-forest shadow-[inset_0_2px_0_#46ffd3,inset_0_-2px_0_#0fd1aa] btn-motion hover:-translate-y-1 hover:bg-white hover:shadow-[0_22px_44px_-12px_rgb(0_0_60/0.45)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:mt-11 md:h-14 lg:mt-10"
-        >
-          Download the report
-        </a>
       </div>
-
     </section>
 
     <main>
@@ -474,6 +476,6 @@
       class="pointer-events-none fixed inset-x-0 bottom-6 z-50 mx-auto w-fit max-w-[calc(100%-2rem)] translate-y-4 rounded-xl bg-neutral-900 px-5 py-3 text-sm text-white opacity-0 shadow-lg transition duration-300"
     ></div>
 
-    <script src="/2026-report-assets/js/main.js?v=202610011130" defer></script>
+    <script src="/2026-report-assets/js/main.js?v=202610021230" defer></script>
   </body>
 </html>
