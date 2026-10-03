@@ -41,37 +41,107 @@
     });
   });
 
-  // Download: until a real file is wired up, let the user know instead of jumping to "#".
-  document.querySelectorAll("[data-download]").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      if (link.getAttribute("href") === "#") {
-        e.preventDefault();
-        showToast("The report will be available to download soon");
-      }
-    });
-  });
-
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Count-up for stat numbers. The final value is already in the HTML, so no-JS users see it too.
-  function countUp(el) {
-    const target = parseFloat(el.dataset.count);
-    const decimals = parseInt(el.dataset.decimals || "0", 10);
-    const prefix = el.dataset.prefix || "";
-    const suffix = el.dataset.suffix || "";
-    // One formatter per counter: building it is the expensive part, and tick() runs every frame
-    const nf = new Intl.NumberFormat("en-NG", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-    const format = (n) => prefix + nf.format(n) + suffix;
-    const duration = 1900;
-    const start = performance.now();
+  // Download: gated behind the HubSpot form. Both "Download PaidRight Report" buttons open the same
+  // modal; the native <dialog> gives us a focus trap, Escape-to-close and an inert background for free.
+  const downloadModal = document.getElementById("download-modal");
+  if (downloadModal) {
+    let opener = null;
+    const REPORT_URL =
+      "https://www.dropbox.com/scl/fi/w71kit9b0veqez4gse344/THE-PAIDHR-COMPENSATION-INTELLIGENCE-REPORT-2026.pdf?rlkey=xkkf0n97uj8ylirdoou9utg61&st=9n1ak6q6&e=1&dl=1";
 
-    function tick(now) {
-      const t = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = format(target * eased);
-      if (t < 1) requestAnimationFrame(tick);
+    // The form is created once, the first time the modal opens — not at page load, so nothing is
+    // fetched from HubSpot until someone actually wants the report.
+    let hsFormStarted = false;
+    function startHsForm() {
+      if (hsFormStarted) return;
+      if (!(window.hbspt && window.hbspt.forms)) {
+        setTimeout(startHsForm, 150); // forms/v2.js is still loading; try again shortly
+        return;
+      }
+      hsFormStarted = true;
+      const target = downloadModal.querySelector("#hubspot-form-target");
+      const loading = downloadModal.querySelector("[data-hs-loading]");
+      const success = downloadModal.querySelector("[data-hs-success]");
+      let redirected = false;
+      const goToReport = () => {
+        if (redirected) return;
+        redirected = true;
+        if (success) {
+          target.hidden = true;
+          success.hidden = false;
+        }
+        setTimeout(() => (window.location.href = REPORT_URL), success && !reduceMotion ? 1100 : 0);
+      };
+
+      // On this portal, hbspt.forms.create()'s onFormReady/onFormSubmitted callbacks are never
+      // actually invoked (confirmed: they get serialised into inert data- attributes instead), and
+      // redirectUrl navigates only the iframe itself, not this page — which would otherwise leave
+      // Dropbox trying to render inside a 480px-wide box. So instead: watch for the iframe HubSpot
+      // inserts (removes the spinner once it exists), then watch *that iframe's own* load event —
+      // cross-origin-safe even though we can't read its contents. The first load is the form itself;
+      // any load after that means it navigated away (to redirectUrl, after a real submission), which
+      // is the one reliable, cross-origin-safe submission signal available here — at that instant we
+      // take over navigation ourselves so the report opens in the full page, not the small iframe.
+      const watchIframe = new MutationObserver(() => {
+        const iframe = target.querySelector("iframe");
+        if (!iframe) return;
+        watchIframe.disconnect();
+        loading?.remove();
+        let loadCount = 0;
+        iframe.addEventListener("load", () => {
+          loadCount += 1;
+          if (loadCount > 1) goToReport();
+        });
+      });
+      watchIframe.observe(target, { childList: true, subtree: true });
+
+      window.hbspt.forms.create({
+        region: "eu1",
+        portalId: "26055346",
+        formId: "9b0ce4b6-9649-4f03-8015-6ec2856106ff",
+        target: "#hubspot-form-target",
+        redirectUrl: REPORT_URL,
+      });
     }
-    requestAnimationFrame(tick);
+
+    const openModal = () => {
+      opener = document.activeElement;
+      downloadModal.showModal();
+      requestAnimationFrame(() => downloadModal.classList.add("is-open"));
+      startHsForm();
+    };
+
+    const closeModal = () => {
+      if (!downloadModal.open) return;
+      downloadModal.classList.remove("is-open");
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        downloadModal.removeEventListener("transitionend", finish);
+        downloadModal.close();
+        opener?.focus();
+      };
+      if (reduceMotion) finish();
+      else {
+        downloadModal.addEventListener("transitionend", finish);
+        setTimeout(finish, 350); // safety net if the transition never fires
+      }
+    };
+
+    document.querySelectorAll("[data-download]").forEach((btn) => btn.addEventListener("click", openModal));
+    downloadModal.querySelectorAll("[data-modal-close]").forEach((btn) => btn.addEventListener("click", closeModal));
+    // Clicking the ::backdrop fires a click on the dialog itself (nothing else inside it fills the whole box)
+    downloadModal.addEventListener("click", (e) => {
+      if (e.target === downloadModal) closeModal();
+    });
+    // The dialog's own Escape-to-close fires "cancel" before "close"; animate it the same way as our buttons
+    downloadModal.addEventListener("cancel", (e) => {
+      e.preventDefault();
+      closeModal();
+    });
   }
 
   // Split headings into words for the word-by-word reveal. Words inside a coloured span
@@ -112,12 +182,6 @@
     [...heading.children].forEach((c) => c.setAttribute("aria-hidden", "true"));
   });
 
-  // Hero: kick off the headline word reveal on load.
-  const hero = document.querySelector("[data-hero]");
-  if (hero) {
-    hero.querySelector("h1[data-words]")?.style.setProperty("--reveal-delay", "150ms");
-    requestAnimationFrame(() => hero.classList.add("is-visible"));
-  }
 
   // Scroll reveal + trigger count-ups when their card comes into view.
   const revealEls = document.querySelectorAll("[data-reveal]");
@@ -132,7 +196,6 @@
           .filter((entry) => !entry.isIntersecting && entry.boundingClientRect.bottom < 0)
           .forEach((entry) => {
             entry.target.classList.add("is-visible");
-            entry.target.querySelectorAll("[data-count]").forEach(countUp);
             observer.unobserve(entry.target);
           });
         entries
@@ -142,7 +205,6 @@
             const el = entry.target;
             el.style.setProperty("--reveal-delay", `${Math.min(i, 5) * 120}ms`);
             el.classList.add("is-visible");
-            setTimeout(() => el.querySelectorAll("[data-count]").forEach(countUp), Math.min(i, 5) * 120);
             observer.unobserve(el);
           });
       },
