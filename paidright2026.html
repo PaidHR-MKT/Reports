@@ -28,8 +28,8 @@
       property="og:description"
       content="Is your pay normal? 25,000+ real payroll records from 400+ Nigerian employers: median salary, pay growth, industry gaps and the gender pay gap."
     />
-    <meta property="og:image" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610031722" />
-    <meta property="og:image:secure_url" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610031722" />
+    <meta property="og:image" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610041433" />
+    <meta property="og:image:secure_url" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610041433" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="600" />
@@ -47,7 +47,7 @@
     <meta name="twitter:creator" content="@getPaidHR" />
     <meta name="twitter:title" content="Getting PaidRight: PaidHR Compensation Report 2026" />
     <meta name="twitter:description" content="Real payroll, not guesses. What work pays in Nigeria, from 25,000+ payroll records across 400+ employers." />
-    <meta name="twitter:image" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610031722" />
+    <meta name="twitter:image" content="https://report.paidhr.com/2026-report-assets/img/og-image.jpg?v=202610041433" />
     <meta name="twitter:image:alt" content="Getting PaidRight — PaidHR Compensation Intelligence Report 2026" />
 
     <!-- ========== Icons ========== -->
@@ -59,7 +59,7 @@
     <link rel="preload" href="/2026-report-assets/fonts/gilroy-medium.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/2026-report-assets/fonts/gilroy-regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/2026-report-assets/img/hero/backdrop.webp" as="image" imagesrcset="/2026-report-assets/img/hero/backdrop.webp 1440w, /2026-report-assets/img/hero/backdrop@2x.webp 2880w" imagesizes="max(100vw, 1440px)" fetchpriority="high" />
-    <link rel="stylesheet" href="/2026-report-assets/css/style.css?v=202610031722" />
+    <link rel="stylesheet" href="/2026-report-assets/css/style.css?v=202610041433" />
     <script>
       document.documentElement.classList.add("js");
     </script>
@@ -239,15 +239,14 @@
             <p>We wanted a better answer. So we skipped the guessing and looked at real payroll instead.</p>
           </div>
 
-          <button
-            type="button"
-            data-download
+          <a
+            href="/paidright2026/download"
             data-hero-anim
             style="--d: 460ms"
             class="mt-8 inline-flex h-12 items-center justify-center rounded-xl bg-mint px-5 text-sm font-semibold text-forest shadow-[inset_0_2px_0_#46ffd3,inset_0_-2px_0_#0fd1aa] btn-motion hover:-translate-y-1 hover:bg-white hover:shadow-[0_22px_44px_-12px_rgb(0_0_60/0.45)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:mt-11 md:h-14 lg:mt-10"
           >
             Download PaidRight Report
-          </button>
+          </a>
         </div>
       </div>
     </section>
@@ -417,7 +416,7 @@
         <div class="absolute inset-0 -z-10 bg-gradient-to-t from-[#06112c]/90 via-[#06112c]/50 to-transparent lg:hidden" aria-hidden="true"></div>
         <div class="page-wrap" data-reveal>
           <h2 id="download-title" data-words class="max-w-[600px] text-[40px] font-medium leading-[1.3] sm:text-5xl lg:text-[72px] lg:leading-[1.5]">See where you stand on the line.</h2>
-          <button type="button" data-download class="btn-sun mt-6 lg:mt-[15px]">Download PaidRight Report</button>
+          <a href="/paidright2026/download" class="btn-sun mt-6 lg:mt-[15px]">Download PaidRight Report</a>
         </div>
       </section>
     </main>
@@ -479,34 +478,6 @@
       class="pointer-events-none fixed inset-x-0 bottom-6 z-50 mx-auto w-fit max-w-[calc(100%-2rem)] translate-y-4 rounded-xl bg-neutral-900 px-5 py-3 text-sm text-white opacity-0 shadow-lg transition duration-300"
     ></div>
 
-    <!-- Download gate: both "Download PaidRight Report" buttons open this. A native <dialog> gives us a
-         focus trap, Escape-to-close and an inert background for free; src/input.css only adds the fade/scale
-         and the ::backdrop colour, and /2026-report-assets/js/main.js only calls showModal()/close() at the right times.
-         The form itself is rendered via hbspt.forms.create() (forms/v2.js), not the static embed snippet —
-         that's the only HubSpot loading method with a documented, working post-submit redirect; the static
-         embed (forms/embed/{portalId}.js) doesn't reliably expose a submission event to the parent page. -->
-    <!-- The HubSpot form embeds its own title/description, so the dialog doesn't repeat them — it's
-         labelled for assistive tech directly via aria-label instead of aria-labelledby. -->
-    <dialog id="download-modal" class="download-modal" aria-label="Download the PaidRight Report">
-      <button type="button" data-modal-close class="download-modal-close" aria-label="Close">
-        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-        </svg>
-      </button>
-      <div id="hubspot-form-target" class="hubspot-form-target">
-        <div data-hs-loading class="hs-form-loading" aria-hidden="true"><span class="hs-spinner"></span></div>
-      </div>
-      <div data-hs-success class="hs-form-success" hidden>
-        <svg class="hs-success-check" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-          <circle cx="24" cy="24" r="22" stroke="#005544" stroke-width="2.5" />
-          <path d="M14 24.5L20.5 31L34 17" stroke="#005544" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <p class="mt-4 text-lg font-semibold text-navy">Thanks — you're all set.</p>
-        <p class="mt-1 text-sm text-ink-soft">Taking you to your download…</p>
-      </div>
-    </dialog>
-
-    <script src="https://js-eu1.hsforms.net/forms/v2.js" defer></script>
-    <script src="/2026-report-assets/js/main.js?v=202610031722" defer></script>
+    <script src="/2026-report-assets/js/main.js?v=202610041433" defer></script>
   </body>
 </html>
