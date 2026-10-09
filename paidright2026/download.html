@@ -6,38 +6,179 @@
     <title>Download the PaidRight Report 2026 | PaidHR</title>
     <meta name="description" content="Get your free copy of the PaidHR Compensation Intelligence Report 2026." />
     <meta name="robots" content="noindex, follow" />
-    <meta name="theme-color" content="#004AF5" />
+    <meta name="theme-color" content="#bdd3fe" />
     <meta name="color-scheme" content="light" />
     <link rel="icon" href="https://www.paidhr.com/wp-content/uploads/2025/09/fav-4-150x150.png" sizes="32x32" />
     <link rel="preload" href="/2026-report-assets/fonts/gilroy-medium.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/2026-report-assets/fonts/gilroy-regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/2026-report-assets/css/style.css?v=202610041433" />
+    <link rel="stylesheet" href="/2026-report-assets/css/style.css?v=202610091300" />
   </head>
-  <body class="flex min-h-dvh flex-col bg-brand text-white">
-    <header class="page-wrap flex items-center justify-between gap-4 py-5 md:pt-8">
-      <a href="/" class="shrink-0" aria-label="PaidHR home">
-        <img src="/2026-report-assets/img/logo.svg" alt="PaidHR" width="134" height="41" class="h-auto w-[88px] md:w-[106px]" />
+  <body class="flex min-h-dvh flex-col bg-sky text-ink">
+    <header class="page-wrap max-w-none! flex items-center justify-between gap-4 pt-6 sm:pt-8 lg:pt-11">
+      <a href="/paidright2026" class="shrink-0" aria-label="PaidHR home">
+        <img src="/2026-report-assets/img/logo-blue.svg" alt="PaidHR" width="134" height="41" class="h-auto w-[107px]" />
       </a>
-      <a href="/paidright2026" class="text-sm font-semibold underline-offset-4 hover:underline">&larr; Back to the report</a>
+      <p class="hidden text-sm uppercase md:block">PaidHR Compensation Intelligence Report &middot; 2026</p>
+      <a href="/paidright2026" data-back-home class="hidden items-center md:inline-flex gap-3 text-sm font-medium underline-offset-4 hover:underline sm:text-base">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4m6-6-6 6 6 6" /></svg>
+        Back to homepage
+      </a>
     </header>
 
-    <main class="page-wrap flex-1 py-8 sm:py-12">
-      <!-- The HubSpot share page itself, framed as-is, so the form and its artwork panel render exactly as
-           HubSpot designed them (no layout we'd have to fight). /2026-report-assets/js/download.js watches this iframe. -->
-      <!-- The share page pads its form by 30px on every side; the iframe is oversized by 60px and pulled
-           back by 30px so the card hugs the form itself (800px wide, or the viewport on small screens). -->
-      <div id="download-card" class="relative mx-auto min-h-[540px] w-full max-w-[800px] overflow-hidden rounded-2xl bg-white sm:min-h-[564px]">
-        <div data-hs-loading class="hs-form-loading absolute inset-0 z-10 bg-white" aria-hidden="true"><span class="hs-spinner"></span></div>
-        <iframe
-          data-hs-frame
-          src="https://figfm.share-eu1.hsforms.com/2mwzktpZJTwOAFW7ChWEG_w"
-          title="Download the PaidRight Report"
-          class="-m-[30px] block h-[calc(860px-60px)] w-[calc(100%+60px)] max-w-none border-0 sm:h-[624px]"
-        ></iframe>
+    <main class="page-wrap flex-1 pt-[50px] pb-10 sm:pt-12 lg:pt-[94px] lg:pb-16">
+      <div class="mx-auto grid w-full max-w-[600px] overflow-hidden rounded-lg bg-white lg:max-w-[1160px] lg:rounded-3xl lg:min-h-[628px] lg:grid-cols-[597fr_563fr]">
+        <!-- Left: the two-step form (swapped for the success view once submitted) -->
+        <section class="flex flex-col px-6 pt-12 pb-12 sm:px-12 lg:px-16 lg:py-12" aria-labelledby="download-title">
+          <div data-form-view class="flex flex-1 flex-col">
+            <h1 id="download-title" class="text-[38px] font-medium leading-[1.4] tracking-[-0.02em] text-midnight lg:text-[52px] lg:leading-[1.1]">
+              <span class="text-brand">Download</span> the PaidRight&nbsp;report.
+            </h1>
+            <p class="mt-4 max-w-[470px] text-base leading-6 text-ink/70">
+              Salary benchmarks from 25,000+ payroll records, for employees checking their pay and employers setting it.
+            </p>
+
+            <form
+              data-dl-form
+              data-endpoint="/api/download-submit"
+              data-report-url="https://www.dropbox.com/scl/fi/w71kit9b0veqez4gse344/THE-PAIDHR-COMPENSATION-INTELLIGENCE-REPORT-2026.pdf?rlkey=xkkf0n97uj8ylirdoou9utg61&st=9n1ak6q6&dl=0"
+              novalidate
+              class="mt-[35px] flex flex-1 flex-col"
+            >
+              <!-- Step 1 -->
+              <div data-step="1" class="dl-step grid gap-x-4 gap-y-[23px] sm:grid-cols-2">
+                <div>
+                  <label for="dl-firstname" class="dl-label">First name<span aria-hidden="true">*</span></label>
+                  <input id="dl-firstname" name="firstname" type="text" autocomplete="given-name" required maxlength="80" class="dl-field" />
+                  <p data-error-for="firstname" class="dl-error" hidden></p>
+                </div>
+                <div>
+                  <label for="dl-lastname" class="dl-label">Last name<span aria-hidden="true">*</span></label>
+                  <input id="dl-lastname" name="lastname" type="text" autocomplete="family-name" required maxlength="80" class="dl-field" />
+                  <p data-error-for="lastname" class="dl-error" hidden></p>
+                </div>
+                <div class="sm:col-span-2">
+                  <label for="dl-email" class="dl-label">Work email<span aria-hidden="true">*</span></label>
+                  <input id="dl-email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="254" class="dl-field" />
+                  <p data-error-for="email" class="dl-error" hidden></p>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div data-step="2" class="dl-step grid gap-x-4 gap-y-[23px] sm:grid-cols-2" hidden>
+                <div class="sm:col-span-2">
+                  <label for="dl-phone" class="dl-label">Phone number<span aria-hidden="true">*</span></label>
+                  <div class="flex">
+                    <select name="dialcode" aria-label="Country code" class="dl-field dl-select w-[7.25rem]! shrink-0 rounded-r-none! pr-8! pl-3.5! focus:relative focus:z-10">
+                      <option value="+234" selected>NG +234</option>
+                      <option value="+233">GH +233</option>
+                      <option value="+254">KE +254</option>
+                      <option value="+27">ZA +27</option>
+                      <option value="+44">GB +44</option>
+                      <option value="+1">US +1</option>
+                    </select>
+                    <input id="dl-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="801 234 5678" required maxlength="20" class="dl-field -ml-px min-w-0 rounded-l-none! focus:relative focus:z-10" />
+                  </div>
+                  <p data-error-for="phone" class="dl-error" hidden></p>
+                </div>
+                <div>
+                  <label for="dl-category" class="dl-label">Category<span aria-hidden="true">*</span></label>
+                  <select id="dl-category" name="category" required class="dl-field dl-select">
+                    <option value="" selected disabled>Select</option>
+                    <option value="JOKUPjVcGqqIk0fsk3YOw">HR/Finance/Admin</option>
+                    <option value="js2XLfA5ihRoZBRPEfEpo">Employee</option>
+                    <option value="Founder">Founder/Co-Founder</option>
+                    <option value="C-Suite Executive">C-Suite Executive</option>
+                  </select>
+                  <p data-error-for="category" class="dl-error" hidden></p>
+                </div>
+                <div>
+                  <label for="dl-company" class="dl-label">Company name<span aria-hidden="true">*</span></label>
+                  <input id="dl-company" name="company" type="text" autocomplete="organization" required maxlength="120" class="dl-field" />
+                  <p data-error-for="company" class="dl-error" hidden></p>
+                </div>
+              </div>
+
+              <!-- Honeypot: real visitors never see or fill this -->
+              <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+                <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+              </div>
+
+              <div class="mt-auto pt-7 lg:pt-10">
+                <div class="flex items-center justify-between text-xs">
+                  <span data-step-label class="font-medium text-brand">Step 1 of 2</span>
+                  <span data-step-hint class="text-ink/60">Your details</span>
+                </div>
+                <div class="mt-2 h-1.5 overflow-hidden rounded-full bg-[#e6ebf5]" role="progressbar" aria-label="Form progress" aria-valuemin="1" aria-valuemax="2" aria-valuenow="1">
+                  <div data-bar class="dl-bar h-full w-1/2 rounded-full bg-brand"></div>
+                </div>
+
+                <p data-form-error role="alert" class="mt-4 text-sm text-[#d92d20]" hidden></p>
+
+                <div class="mt-[30px] flex items-center justify-between gap-2">
+                  <button type="button" data-prev hidden class="inline-flex h-[52px] w-[132px] items-center justify-center rounded-xl border border-[#d3dbec] bg-white text-sm lg:rounded-lg text-ink transition-colors hover:bg-[#f7f9ff] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">Previous</button>
+                  <button type="submit" data-next class="btn-brand ml-auto h-[52px] min-w-[132px] gap-2.5 px-5 lg:rounded-lg!">
+                    <span data-next-label>Continue</span>
+                    <svg data-next-arrow aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
+                    <span data-next-spinner class="dl-spinner" hidden></span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Success -->
+          <div data-success-view class="dl-success flex flex-1 flex-col justify-center py-8" hidden tabindex="-1">
+            <span class="flex size-14 items-center justify-center rounded-full bg-mist text-forest">
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+            </span>
+            <h2 data-success-title class="mt-6 text-[2.5rem] font-medium leading-[1.1] tracking-[-0.02em] text-midnight sm:text-[52px]">Thank you.</h2>
+            <p class="mt-4 max-w-[420px] text-base leading-6 text-ink/70">Your details are in. Use the button below to open your copy of the report.</p>
+            <a data-success-link href="#" class="btn-brand mt-8 h-[52px] w-fit gap-2.5 rounded-lg! px-6">
+              Download the report
+              <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14" /></svg>
+            </a>
+          </div>
+        </section>
+
+        <!-- Right: report panel -->
+        <aside class="relative isolate hidden min-h-[420px] overflow-hidden lg:block bg-brand px-6 py-10 text-white sm:px-12 lg:py-12 lg:pr-8 lg:pl-[49px]" aria-label="About the report">
+          <!-- Artwork: the homepage hero bars on a light blue base -->
+          <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 isolate overflow-hidden bg-[linear-gradient(155deg,#3d7dff_0%,#1b5cfa_45%,#0a4cf0_100%)]">
+            <!-- Hero bars, scaled so the group spans x 90-635 and the tallest bar starts at y 225 of the 563x628 panel (as in Sidebar.svg) -->
+            <div class="absolute top-[22.4%] left-[-20.4%] aspect-[1440/888] w-[170.1%]">
+              <img data-bar style="--i: 1" src="/2026-report-assets/img/hero/bar-m.webp" alt="" width="670" height="1602" class="absolute left-[39.514%] top-[14.302%] w-[23.264%]" />
+              <img data-bar style="--i: 0" src="/2026-report-assets/img/hero/bar-l.webp" alt="" width="670" height="1134" class="absolute left-[21.389%] top-[40.653%] w-[23.264%]" />
+              <img data-bar style="--i: 2" src="/2026-report-assets/img/hero/bar-r.webp" alt="" width="670" height="814" class="absolute left-[55.069%] top-[58.671%] w-[23.264%]" />
+              <img data-bar style="--i: 3" src="/2026-report-assets/img/hero/bar-f.webp" alt="" width="670" height="430" class="absolute left-[33.611%] top-[80.293%] w-[23.264%]" />
+            </div>
+            <div class="absolute -top-24 -right-24 size-[430px] rounded-full bg-mint/25 blur-[80px]"></div>
+          </div>
+          <p class="text-[2.5rem] font-medium leading-[1.1] tracking-[-0.02em] sm:text-5xl xl:text-[60px] xl:tracking-[-0.03em]">
+            Salary Benchmark Report <span class="text-mint">2026</span>
+          </p>
+          <div class="mt-8 flex max-w-[361px] flex-wrap items-baseline gap-x-2 gap-y-1 border-t border-white/30 pt-5 xl:flex-nowrap">
+            <span class="text-xl text-mint">25,000+</span>
+            <span class="text-[11px] text-white/85">Real payroll records from 400+ Nigerian employers.</span>
+          </div>
+        </aside>
       </div>
-      <p data-hs-success hidden class="mt-6 text-center text-lg font-semibold">Thanks — taking you to your download…</p>
+
+      <p class="mt-[18px] text-center text-xs leading-[18px] text-ink/55 lg:mt-6">Your details are in safe hands.<br class="lg:hidden" /> We'll only use them to send your report.</p>
     </main>
 
-    <script src="/2026-report-assets/js/download.js?v=202610041433" defer></script>
+    <dialog data-report-modal aria-labelledby="report-modal-title" class="m-auto w-[calc(100%-2.5rem)] max-w-[440px] rounded-3xl bg-white p-8 text-ink backdrop:bg-midnight/60 backdrop:backdrop-blur-sm sm:p-10">
+      <span class="flex size-14 items-center justify-center rounded-full bg-mist text-forest">
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+      </span>
+      <h2 id="report-modal-title" data-modal-title class="mt-6 text-3xl font-medium leading-[1.15] tracking-[-0.02em] text-midnight">Thank you.</h2>
+      <p class="mt-3 text-base leading-6 text-ink/70">Your report is ready. Open it on Dropbox to read or save your copy.</p>
+      <a data-modal-link href="#" target="_blank" rel="noopener" class="btn-brand mt-7 h-[52px] w-full gap-2.5 rounded-lg! px-6">
+        Open the report
+        <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
+      </a>
+      <button type="button" data-modal-close class="mt-3 w-full rounded-lg py-3 text-sm text-ink/60 transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand">Close</button>
+    </dialog>
+
+    <script src="/2026-report-assets/js/download.js?v=202610091300" defer></script>
   </body>
 </html>
