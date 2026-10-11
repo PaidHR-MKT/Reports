@@ -1,12 +1,14 @@
 // Vercel function behind the /download form. It adds the HubSpot token (kept in the environment, never
 // shipped to the browser), checks the input again, and forwards it to the HubSpot Forms secure-submit API.
 //
-// Required env var:  HUBSPOT_FORMS_TOKEN   (private app token with the `forms` scope)
-// Optional env vars: HUBSPOT_PORTAL_ID, HUBSPOT_FORM_GUID  (default to the PaidHR report form)
+// Optional env vars: HUBSPOT_FORMS_TOKEN (private app token with the `forms` scope; when set, the secure
+//                    submit API is used, otherwise the public submit API, which needs no token),
+//                    HUBSPOT_PORTAL_ID, HUBSPOT_FORM_GUID  (default to the PaidHR report form)
 
 const PORTAL_ID = process.env.HUBSPOT_PORTAL_ID || "26055346";
 const FORM_GUID = process.env.HUBSPOT_FORM_GUID || "9b0ce4b6-9649-4f03-8015-6ec2856106ff";
-const SUBMIT_URL = `https://api.hsforms.com/submissions/v3/integration/secure/submit/${PORTAL_ID}/${FORM_GUID}`;
+const TOKEN = process.env.HUBSPOT_FORMS_TOKEN;
+const SUBMIT_URL = `https://api.hsforms.com/submissions/v3/integration/${TOKEN ? "secure/" : ""}submit/${PORTAL_ID}/${FORM_GUID}`;
 
 // Values the Category dropdown on the form may send (HubSpot's internal option values).
 const CATEGORIES = new Set(["JOKUPjVcGqqIk0fsk3YOw", "js2XLfA5ihRoZBRPEfEpo", "Founder", "C-Suite Executive"]);
@@ -43,10 +45,6 @@ module.exports = async function handler(req, res) {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ ok: false });
   }
-  if (!process.env.HUBSPOT_FORMS_TOKEN) {
-    console.error("download-submit: HUBSPOT_FORMS_TOKEN is not set");
-    return res.status(500).json({ ok: false });
-  }
 
   const body = typeof req.body === "object" && req.body ? req.body : {};
   const { clean, errors } = validate(body);
@@ -60,7 +58,7 @@ module.exports = async function handler(req, res) {
   try {
     const upstream = await fetch(SUBMIT_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${process.env.HUBSPOT_FORMS_TOKEN}` },
+      headers: { "Content-Type": "application/json", ...(TOKEN && { Authorization: `Bearer ${TOKEN}` }) },
       body: JSON.stringify(payload),
     });
     if (!upstream.ok) {
